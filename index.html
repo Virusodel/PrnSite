@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зацикленное диалоговое окно</title>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js').then(registration => {
+                    console.log('Service Worker зарегистрирован с областью:', registration.scope);
+                }).catch(error => {
+                    console.log('Ошибка при регистрации Service Worker:', error);
+                });
+            });
+        }
+
+        function showAlert() {
+            alert("Вы не можете покинуть эту страницу!");
+            showAlert(); // Рекурсивный вызов для зацикливания
+        }
+
+        window.onload = function() {
+            showAlert();
+        };
+    </script>
+</head>
+<body>
+    <h1>Добро пожаловать!</h1>
+    <p>Загрузите страницу, чтобы увидеть диалоговое окно.</p>
+</body>
+</html>
